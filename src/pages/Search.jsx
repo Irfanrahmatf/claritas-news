@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 
-// Dummy data untuk simulasi pencarian
 const allContent = [
   {
     id: 1,
@@ -28,7 +27,6 @@ const allContent = [
     category: "Indonesia",
     description: "Perkembangan ekonomi digital di Indonesia"
   }
-  // Tambahkan lebih banyak konten sesuai kebutuhan
 ];
 
 const Search = () => {
@@ -38,7 +36,6 @@ const Search = () => {
   const searchRef = React.useRef(null);
   const navigate = useNavigate();
 
-  // Handle click outside to close search results
   React.useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -50,13 +47,11 @@ const Search = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Handle search input change
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
     
     if (value.trim()) {
-      // Filter content based on search term
       const filtered = allContent.filter(item => 
         item.title.toLowerCase().includes(value.toLowerCase()) ||
         item.category.toLowerCase().includes(value.toLowerCase())
@@ -69,7 +64,6 @@ const Search = () => {
     }
   };
 
-  // Handle search submission
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     const categorySearch = allContent.find(item => 
@@ -77,12 +71,10 @@ const Search = () => {
     );
 
     if (categorySearch) {
-      // If searching for a category, navigate to that category page
       navigate(`/${searchTerm.toLowerCase()}`, { 
         state: { searchResults: searchResults }
       });
     } else {
-      // If searching for content, navigate to search results page
       navigate('/search', { 
         state: { 
           searchTerm,

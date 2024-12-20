@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import * as newsService from '../services/newsService';
 
-// Helper function to add unique id and category
 const formatNewsData = (articles, category) => {
   return articles.map(article => ({
     ...article,
@@ -11,7 +10,6 @@ const formatNewsData = (articles, category) => {
   }));
 };
 
-// Async thunks for fetching news
 export const fetchIndonesiaNews = createAsyncThunk(
   'news/fetchIndonesiaNews',
   async (page = 1, { rejectWithValue }) => {

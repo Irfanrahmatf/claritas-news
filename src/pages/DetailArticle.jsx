@@ -11,10 +11,8 @@ const DetailArticle = () => {
   const { article } = location.state || {};
   const savedArticles = useSelector((state) => state.saved.savedArticles);
   
-  // If no article in location state, try to find it in saved articles
   const displayArticle = article || savedArticles.find((a) => a.id === id);
 
-  // If no article found, show error state
   if (!displayArticle) {
     return (
       <div className="min-h-screen flex flex-col bg-gray-50">

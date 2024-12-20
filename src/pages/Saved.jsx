@@ -4,21 +4,17 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 const Saved = () => {
-  // Ambil savedArticles dari Redux state
   const savedArticles = useSelector((state) => state.saved.savedArticles);
 
-  // Debugging: Log savedArticles saat komponen dimuat
   React.useEffect(() => {
-    console.log('Saved Articles:', savedArticles); // Tambahkan ini untuk debugging
+    console.log('Saved Articles:', savedArticles); 
   }, [savedArticles]);
 
-  // Ambil data dari localStorage jika tersedia
   const [cachedSavedArticles, setCachedSavedArticles] = React.useState(
     JSON.parse(localStorage.getItem('savedArticles')) || []
   );
 
   React.useEffect(() => {
-    // Perbarui localStorage setiap kali savedArticles berubah
     localStorage.setItem('savedArticles', JSON.stringify(savedArticles));
     setCachedSavedArticles(savedArticles);
   }, [savedArticles]);

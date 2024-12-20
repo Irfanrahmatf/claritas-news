@@ -7,7 +7,6 @@ import { saveArticle, unsaveArticle } from '../redux/savedSlice';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-// Komponen ArticleCard
 const ArticleCard = ({ article, isBookmarked, toggleBookmark }) => {
   const navigate = useNavigate();
 
@@ -75,7 +74,6 @@ const ArticleCard = ({ article, isBookmarked, toggleBookmark }) => {
   );
 };
 
-// Komponen Programming
 const Programming = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(true);
@@ -84,7 +82,6 @@ const Programming = () => {
   const programmingNews = useSelector((state) => state.news.programmingNews);
   const nycNews = useSelector((state) => state.news.nycNews);
 
-  // Ambil data dari localStorage atau sessionStorage jika tersedia
   const [cachedProgrammingNews, setCachedProgrammingNews] = React.useState(
     JSON.parse(localStorage.getItem('programmingNews')) || []
   );
@@ -97,11 +94,9 @@ const Programming = () => {
       try {
         setLoading(true);
 
-        // Cek apakah data sudah tersimpan di localStorage
         if (cachedProgrammingNews.length > 0 || cachedNYCNews.length > 0) {
           console.log('Using cached data from localStorage');
         } else {
-          // Jika tidak ada data di localStorage, ambil dari API
           try {
             await dispatch(fetchNYCNews());
           } catch (nycError) {
@@ -120,7 +115,6 @@ const Programming = () => {
     fetchData();
   }, [dispatch, cachedProgrammingNews, cachedNYCNews]);
 
-  // Simpan data ke localStorage setelah fetch
   React.useEffect(() => {
     if (programmingNews.length > 0) {
       localStorage.setItem('programmingNews', JSON.stringify(programmingNews));
@@ -166,7 +160,6 @@ const Programming = () => {
     );
   }
 
-  // Gunakan data dari localStorage jika tersedia, jika tidak, gunakan data dari Redux
   const articlesToDisplay =
     cachedNYCNews.length > 0 ? cachedNYCNews : cachedProgrammingNews.length > 0 ? cachedProgrammingNews : nycNews.length > 0 ? nycNews : programmingNews;
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { FaBookmark } from 'react-icons/fa';
-import { fetchIndonesiaNews, fetchNYCNews } from '../redux/newsSlice'; // Pastikan ini sudah dikonfigurasi dengan News API
+import { fetchIndonesiaNews, fetchNYCNews } from '../redux/newsSlice'; 
 import { saveArticle, unsaveArticle } from '../redux/savedSlice';
 
 const BentoGrid = () => {
@@ -18,12 +18,12 @@ const BentoGrid = () => {
       try {
         setLoading(true);
 
-        // Coba ambil data dari News API terlebih dahulu
+        
         try {
           await dispatch(fetchIndonesiaNews());
         } catch (newsError) {
           console.warn('News API failed, switching to NYC API.');
-          await dispatch(fetchNYCNews()); // Gunakan NYC API sebagai fallback
+          await dispatch(fetchNYCNews()); 
         }
       } catch (err) {
         console.error('Error fetching news:', err);
@@ -56,7 +56,7 @@ const BentoGrid = () => {
     return <div className="text-center text-red-500 p-8">{error}</div>;
   }
 
-  // Gunakan data dari News API jika tersedia, jika tidak, gunakan NYC API
+  
   const articlesToDisplay = indonesiaNews.length > 0 ? indonesiaNews : nycNews;
 
   if (articlesToDisplay.length === 0) {
@@ -67,22 +67,22 @@ const BentoGrid = () => {
     <div className="space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {articlesToDisplay
-          .filter((article) => article.urlToImage) // Filter artikel yang memiliki gambar
+          .filter((article) => article.urlToImage) 
           .map((article, index) => (
             <div
               key={article.id}
               className={classNames(
                 "relative rounded-3xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl cursor-pointer",
                 {
-                  'sm:col-span-2 lg:col-span-2 lg:row-span-4': index === 0, // Artikel pertama lebih besar
-                  'lg:row-span-2': index > 0 && index < 4, // Artikel berikutnya lebih kecil
+                  'sm:col-span-2 lg:col-span-2 lg:row-span-4': index === 0, 
+                  'lg:row-span-2': index > 0 && index < 4, 
                 }
               )}
               onClick={() => window.open(article.url, '_blank', 'noopener,noreferrer')}
             >
               <div className="relative w-full h-full min-h-[200px] sm:min-h-[164px]">
                 <img
-                  src={article.urlToImage} // Gunakan urlToImage dari News API atau NYC API
+                  src={article.urlToImage}
                   alt={article.title}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
